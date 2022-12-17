@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
@@ -17,63 +18,66 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        // backgroundColor: Colors.teal,
-        body: SafeArea(
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                    child: const CircleAvatar(
-                  radius: 40,
-                  backgroundImage: AssetImage('images/download.jpg'),
-                )),
-                const SizedBox(
-                  height: 20,
-                ),
-                const Text(
-                  "Digvijaysinh Vaghela",
-                  style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                // ignore: prefer_const_constructors
-                Text(
-                  "FLUTTER DEVLOPER",
-                  // ignore: prefer_const_constructors
-                  style: TextStyle(
-                      fontSize: 15.0,
-                      fontWeight: FontWeight.w100,
-                      color: Colors.black.withOpacity(0.6)),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                const TextField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(25.00))),
-                    labelText: "phone number",
-                    icon: Icon(Icons.call),
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                const TextField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(25.00))),
-                    labelText: "Email",
-                    icon: Icon(Icons.mail),
-                  ),
-                )
-              ],
-            ),
-          ),
+        backgroundColor: Colors.red,
+        appBar: AppBar(
+          title: Text("Dice App"),
+          backgroundColor: Colors.red,
         ),
+        body: Dice(),
       ),
     );
+  }
+}
+
+class Dice extends StatefulWidget {
+  const Dice({super.key});
+
+  @override
+  State<Dice> createState() => _DiceState();
+}
+
+class _DiceState extends State<Dice> {
+  int dicenumber = 1;
+  int rdicenumber = 2;
+
+  void changed() {
+    setState(() {
+      dicenumber = Random().nextInt(6) + 1;
+    });
+  }
+
+  void rchanged() {
+    setState(() {
+      rdicenumber = Random().nextInt(6) + 1;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Row(
+        children: [
+          Expanded(
+            flex: 1,
+            child: TextButton(
+              onPressed: () {
+                changed();
+              },
+              child: Image.asset('images/images$dicenumber.png'),
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: TextButton(
+              onPressed: () {
+                rchanged();
+              },
+              child: Image.asset('images/images$rdicenumber.png'),
+            ),
+          ),
+        ],
+      ),
+    );
+    return Container();
   }
 }
